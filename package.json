@@ -1,6 +1,6 @@
 {
   "name": "petstore-teest",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The official TypeScript library for the Petstore Teest API",
   "author": "Petstore Teest <apiteam@swagger.io>",
   "types": "dist/index.d.ts",
