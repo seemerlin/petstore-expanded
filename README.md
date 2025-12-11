@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:seemerlin/petstore-expanded.git
+npm install petstore-expanded
 ```
 
 > [!NOTE]
