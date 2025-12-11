@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { PetstoreTest as default } from './client';
+export { PetstoreTeest as default } from './client';
 
 export { type Uploadable, toFile } from './core/uploads';
 export { APIPromise } from './core/api-promise';
-export { PetstoreTest, type ClientOptions } from './client';
+export { PetstoreTeest, type ClientOptions } from './client';
 export {
-  PetstoreTestError,
+  PetstoreTeestError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,

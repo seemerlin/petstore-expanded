@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import type { PetstoreTest } from '../client';
+import type { PetstoreTeest } from '../client';
 
 export abstract class APIResource {
-  protected _client: PetstoreTest;
+  protected _client: PetstoreTeest;
 
-  constructor(client: PetstoreTest) {
+  constructor(client: PetstoreTeest) {
     this._client = client;
   }
 }

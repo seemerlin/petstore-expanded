@@ -40,7 +40,7 @@ export interface ClientOptions {
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['PETSTORE_TEST_BASE_URL'].
+   * Defaults to process.env['PETSTORE_TEEST_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -94,7 +94,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env['PETSTORE_TEST_LOG'] or 'warn' if it isn't set.
+   * Defaults to process.env['PETSTORE_TEEST_LOG'] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -107,9 +107,9 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Petstore Test API.
+ * API Client for interfacing with the Petstore Teest API.
  */
-export class PetstoreTest {
+export class PetstoreTeest {
   apiKey: string | null;
 
   baseURL: string;
@@ -125,10 +125,10 @@ export class PetstoreTest {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Petstore Test API.
+   * API Client for interfacing with the Petstore Teest API.
    *
    * @param {string | null | undefined} [opts.apiKey=process.env['PETSTORE_TEEST_API_KEY'] ?? null]
-   * @param {string} [opts.baseURL=process.env['PETSTORE_TEST_BASE_URL'] ?? https://petstore.swagger.io/v2] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['PETSTORE_TEEST_BASE_URL'] ?? https://petstore.swagger.io/v2] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -137,7 +137,7 @@ export class PetstoreTest {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv('PETSTORE_TEST_BASE_URL'),
+    baseURL = readEnv('PETSTORE_TEEST_BASE_URL'),
     apiKey = readEnv('PETSTORE_TEEST_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
@@ -148,14 +148,14 @@ export class PetstoreTest {
     };
 
     this.baseURL = options.baseURL!;
-    this.timeout = options.timeout ?? PetstoreTest.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? PetstoreTeest.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('PETSTORE_TEST_LOG'), "process.env['PETSTORE_TEST_LOG']", this) ??
+      parseLogLevel(readEnv('PETSTORE_TEEST_LOG'), "process.env['PETSTORE_TEEST_LOG']", this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
@@ -686,10 +686,10 @@ export class PetstoreTest {
     }
   }
 
-  static PetstoreTest = this;
+  static PetstoreTeest = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static PetstoreTestError = Errors.PetstoreTestError;
+  static PetstoreTeestError = Errors.PetstoreTeestError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -708,9 +708,9 @@ export class PetstoreTest {
   pets: API.Pets = new API.Pets(this);
 }
 
-PetstoreTest.Pets = Pets;
+PetstoreTeest.Pets = Pets;
 
-export declare namespace PetstoreTest {
+export declare namespace PetstoreTeest {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
