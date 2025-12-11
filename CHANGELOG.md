@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 (2025-12-11)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/seemerlin/petstore-expanded/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([df6c522](https://github.com/seemerlin/petstore-expanded/commit/df6c522de4fbfe5946d8c0d66b7439f61c5ad29b))
+* **api:** manual updates ([807e165](https://github.com/seemerlin/petstore-expanded/commit/807e165441adb1aec4a909f89bc5b6255faaa035))
+
 ## 0.1.0 (2025-12-11)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/seemerlin/petstore-expanded/compare/v0.0.1...v0.1.0)
