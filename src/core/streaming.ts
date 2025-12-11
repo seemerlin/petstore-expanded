@@ -1,9 +1,20 @@
-import type { PremAI } from '../client';
+import type { PetstoreTeest } from '../client';
+import type { Response } from '../internal/builtin-types';
 import { ReadableStreamToAsyncIterable } from '../internal/shims';
 import { APIError } from './error';
 import { isAbortError } from '../internal/errors';
 
 type Bytes = string | ArrayBuffer | Uint8Array | null | undefined;
+
+// Type declarations for global APIs
+type AbortControllerType = {
+  new (): {
+    abort(): void;
+    signal: { aborted: boolean };
+  };
+};
+
+declare const AbortController: AbortControllerType;
 
 export type ServerSentEvent = {
   event: string | null;
@@ -12,13 +23,13 @@ export type ServerSentEvent = {
 };
 
 export class Stream<Item> implements AsyncIterable<Item> {
-  controller: AbortController;
-  #client: PremAI | undefined;
+  controller: InstanceType<typeof AbortController>;
+  #client: PetstoreTeest | undefined;
 
   constructor(
     private iterator: () => AsyncIterator<Item>,
-    controller: AbortController,
-    client?: PremAI,
+    controller: InstanceType<typeof AbortController>,
+    client?: PetstoreTeest,
   ) {
     this.controller = controller;
     this.#client = client;
@@ -26,8 +37,8 @@ export class Stream<Item> implements AsyncIterable<Item> {
 
   static fromSSEResponse<Item>(
     response: Response,
-    controller: AbortController,
-    client?: PremAI,
+    controller: InstanceType<typeof AbortController>,
+    client?: PetstoreTeest,
   ): Stream<Item> {
     let consumed = false;
 
@@ -52,8 +63,8 @@ export class Stream<Item> implements AsyncIterable<Item> {
             try {
               data = JSON.parse(sse.data);
             } catch (e) {
-              console.error(`Could not parse message into JSON:`, sse.data);
-              console.error(`From chunk:`, sse.raw);
+              (globalThis as any).console.error(`Could not parse message into JSON:`, sse.data);
+              (globalThis as any).console.error(`From chunk:`, sse.raw);
               throw e;
             }
 
@@ -67,8 +78,8 @@ export class Stream<Item> implements AsyncIterable<Item> {
             try {
               data = JSON.parse(sse.data);
             } catch (e) {
-              console.error(`Could not parse message into JSON:`, sse.data);
-              console.error(`From chunk:`, sse.raw);
+              (globalThis as any).console.error(`Could not parse message into JSON:`, sse.data);
+              (globalThis as any).console.error(`From chunk:`, sse.raw);
               throw e;
             }
             if (sse.event == 'error') {
@@ -124,7 +135,7 @@ export class Stream<Item> implements AsyncIterable<Item> {
 
 async function* _iterSSEMessages(
   response: Response,
-  controller: AbortController,
+  controller: InstanceType<typeof AbortController>,
 ): AsyncGenerator<ServerSentEvent, void, unknown> {
   if (!response.body) {
     controller.abort();
@@ -195,7 +206,7 @@ function findDoubleNewlineIndex(data: Uint8Array): number {
 }
 
 function encodeUTF8(str: string): Uint8Array {
-  return new TextEncoder().encode(str);
+  return new (globalThis as any).TextEncoder().encode(str);
 }
 
 class SSEDecoder {
@@ -258,7 +269,7 @@ class LineDecoder {
   decode(chunk: Bytes): string[] {
     if (chunk == null) return [];
 
-    const text = typeof chunk === 'string' ? chunk : new TextDecoder().decode(chunk);
+    const text = typeof chunk === 'string' ? chunk : new (globalThis as any).TextDecoder().decode(chunk);
     this.buffer += text;
 
     const lines: string[] = [];
